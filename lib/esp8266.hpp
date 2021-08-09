@@ -2,6 +2,11 @@
 #include <stdio.h>
 
 #define UART_BUF_SIZE 64
+#define MAX_SIZE_IP 15
+#define MAX_SIZE_MAC 17
+#define MAX_SIZE_SSID 64
+#define MAX_SIZE_PASSWORD 64
+
 #define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                    // baud_rate, data_bits, stop_bits, parity, flow_control
 
 //ESP8266_UART enums
@@ -73,5 +78,24 @@ private:
     Parity *parity;
     Flow_control *flowcontrol;
     uint8_t Get_UART_Config(char *buf);
+    void Init_var() override;
+};
+
+class ESP8266_WIFI: virtual public ESP8266
+{
+public:
+    ESP8266_WIFI();
+    void Set_IP_MAC_Adress(const char ip[], const char mac[]);
+    void Set_IP_MAC_Adress(const char ip[], const char ip_gateway[], const char ip_netmask[], const char mac[]);
+    ~ESP8266_WIFI() override;
+protected:
+    char *ssid;
+    char *password;
+    char *ip;
+    char *ip_gateway;
+    char *ip_netmask;
+    char *mac;
+    virtual uint8_t Get_IP_Adress(char *buf) = 0;
+    virtual uint8_t Get_MAC_Adress(char *buf) = 0;
     void Init_var() override;
 };
