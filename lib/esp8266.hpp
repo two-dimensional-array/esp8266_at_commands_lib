@@ -131,6 +131,7 @@ class Soft_AP: public ESP8266_WIFI
 public:
     Soft_AP();
     void Begin() override;
+    ~Soft_AP();
 protected:
     Wifi_security *wifisecurity;
     uint8_t *channel;

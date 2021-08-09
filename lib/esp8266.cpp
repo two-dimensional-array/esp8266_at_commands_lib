@@ -84,3 +84,30 @@ ESP8266_WIFI::~ESP8266_WIFI()
     delete[] mac;
 }
 // ESP8266_WIFI
+
+//Soft_AP
+Soft_AP::Soft_AP()
+{
+    Init_var();
+    *this->wifisecurity = OPEN;
+    *this->channel = 1;
+}
+uint8_t Soft_AP::Get_IP_Adress(char *buf)
+{
+    return (uint8_t)(*ip_gateway != '\0' && *ip_netmask != '\0') ? sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP, ip, ip_gateway, ip_netmask) : sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT, ip);
+}
+uint8_t Soft_AP::Get_MAC_Adress(char *buf)
+{
+    return (uint8_t)sprintf(buf,COMMAND_CONFIG_WIFI_MAC_SOFT_AP, mac);
+}
+void Soft_AP::Init_var()
+{
+    wifisecurity = new Wifi_security;
+    channel = new uint8_t;
+}
+Soft_AP::~Soft_AP()
+{
+    delete wifisecurity;
+    delete channel;
+}
+//Soft_AP
