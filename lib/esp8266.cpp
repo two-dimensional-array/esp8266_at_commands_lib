@@ -50,6 +50,17 @@ ESP8266_WIFI::ESP8266_WIFI()
 {
     Init_var();
 }
+void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char mac[])
+{
+    strcpy(this->ip, ip);
+    strcpy(this->mac, mac);
+}
+void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char ip_gateway[], const char ip_netmask[], const char mac[])
+{
+    this->Set_IP_MAC_Adress(ip, mac);
+    strcpy(this->ip_gateway, ip_gateway);
+    strcpy(this->ip_netmask, ip_netmask);
+}
 void ESP8266_WIFI::Init_var()
 {
     this->ssid = new char(MAX_SIZE_SSID);

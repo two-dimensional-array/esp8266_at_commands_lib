@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #define UART_BUF_SIZE 64
 #define MAX_SIZE_IP 15
