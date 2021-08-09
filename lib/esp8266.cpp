@@ -44,3 +44,28 @@ ESP8266_UART::~ESP8266_UART()
     delete flowcontrol;
 }
 // ESP8266_UART
+
+// ESP8266_WIFI
+ESP8266_WIFI::ESP8266_WIFI()
+{
+    Init_var();
+}
+void ESP8266_WIFI::Init_var()
+{
+    this->ssid = new char(MAX_SIZE_SSID);
+    this->password = new char(MAX_SIZE_PASSWORD);
+    this->ip = new char(MAX_SIZE_IP);
+    this->ip_gateway = new char(MAX_SIZE_IP);
+    this->ip_netmask = new char(MAX_SIZE_IP);
+    this->mac = new char(MAX_SIZE_MAC);
+}
+ESP8266_WIFI::~ESP8266_WIFI()
+{
+    delete[] ssid;
+    delete[] password;
+    delete[] ip;
+    delete[] ip_gateway;
+    delete[] ip_netmask;
+    delete[] mac;
+}
+// ESP8266_WIFI
