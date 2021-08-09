@@ -10,6 +10,9 @@
 
 #define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                    // baud_rate, data_bits, stop_bits, parity, flow_control
 #define COMMAND_CONFIG_WIFI_MODE "AT+CWMODE_CUR=%d\n\r"                         // wifi_mode
+#define COMMAND_CONFIG_WIFI_MAC_SOFT_AP "AT+CIPAPMAC_CUR=\"%s\"\n\r"            // mac_adress
+#define COMMAND_CONFIG_WIFI_IP_SOFT_AP "AT+CIPAP_CUR=\"%s\",\"%s\",\"%s\"\n\r"  // ip_adress, ip_gateway, ip_netmask
+#define COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT "AT+CIPAP_CUR=\"%s\"\n\r"          // ip_adress
 
 //ESP8266_UART enums
 enum Baud_rate
@@ -53,6 +56,17 @@ enum Wifi_mode
     Soft_AP_mode = 2,
     Station_Soft_AP_mode = 3
 };
+
+//Soft_AP enums
+enum Wifi_security
+{ 
+    OPEN = 0,
+    WPA_PSK = 1,
+    WPA2_PSK = 2,
+    WPA_WPA2_PSK = 3
+};
+//Soft_AP enums
+
 //ESP8266_WIFI enums
 
 //base class for ESP8266 modules
@@ -109,5 +123,18 @@ protected:
     uint8_t Get_WIFI_Mode(char *buf, Wifi_mode wifimode);
     virtual uint8_t Get_IP_Adress(char *buf) = 0;
     virtual uint8_t Get_MAC_Adress(char *buf) = 0;
+    void Init_var() override;
+};
+
+class Soft_AP: public ESP8266_WIFI
+{
+public:
+    Soft_AP();
+    void Begin() override;
+protected:
+    Wifi_security *wifisecurity;
+    uint8_t *channel;
+    uint8_t Get_IP_Adress(char *buf) override;
+    uint8_t Get_MAC_Adress(char *buf) override;
     void Init_var() override;
 };
