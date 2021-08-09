@@ -61,6 +61,10 @@ void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char ip_gateway[], c
     strcpy(this->ip_gateway, ip_gateway);
     strcpy(this->ip_netmask, ip_netmask);
 }
+uint8_t ESP8266_WIFI::Get_WIFI_Mode(char *buf, Wifi_mode wifimode)
+{
+    return (uint8_t)sprintf(buf, COMMAND_CONFIG_WIFI_MODE, wifimode);
+}
 void ESP8266_WIFI::Init_var()
 {
     this->ssid = new char(MAX_SIZE_SSID);

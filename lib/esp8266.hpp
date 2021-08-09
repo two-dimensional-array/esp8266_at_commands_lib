@@ -9,6 +9,7 @@
 #define MAX_SIZE_PASSWORD 64
 
 #define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                    // baud_rate, data_bits, stop_bits, parity, flow_control
+#define COMMAND_CONFIG_WIFI_MODE "AT+CWMODE_CUR=%d\n\r"                         // wifi_mode
 
 //ESP8266_UART enums
 enum Baud_rate
@@ -44,6 +45,15 @@ enum Flow_control
     RTS_CTS_FLOW_CONTROL = 3
 };
 //ESP8266_UART enums
+
+//ESP8266_WIFI enums
+enum Wifi_mode
+{
+    Station_mode = 1,
+    Soft_AP_mode = 2,
+    Station_Soft_AP_mode = 3
+};
+//ESP8266_WIFI enums
 
 //base class for ESP8266 modules
 class ESP8266
@@ -96,6 +106,7 @@ protected:
     char *ip_gateway;
     char *ip_netmask;
     char *mac;
+    uint8_t Get_WIFI_Mode(char *buf, Wifi_mode wifimode);
     virtual uint8_t Get_IP_Adress(char *buf) = 0;
     virtual uint8_t Get_MAC_Adress(char *buf) = 0;
     void Init_var() override;
