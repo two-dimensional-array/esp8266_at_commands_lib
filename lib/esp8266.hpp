@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#define UART_BUF_SIZE 64
 #define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                    // baud_rate, data_bits, stop_bits, parity, flow_control
 
 //ESP8266_UART enums

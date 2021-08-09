@@ -19,6 +19,11 @@ void ESP8266_UART::Set_UART_Config(Baud_rate baudrate, Data_bits databits, Stop_
     *this->parity = parity;
     *this->flowcontrol = flowcontrol;
 }
+void ESP8266_UART::Begin(){
+    char *buf = new char(UART_BUF_SIZE);
+    Transmit_UART(buf,Get_UART_Config(buf));
+    delete[] buf;
+}
 uint8_t ESP8266_UART::Get_UART_Config(char *buf)
 {
     return (uint8_t)sprintf(buf, COMMAND_CONFIG_UART, *baudrate, *databits, *stopbits, *parity, *flowcontrol);
