@@ -131,6 +131,21 @@ void Soft_AP::Set_WIFI(const char ssid[], const char password[], uint8_t channel
     Soft_AP::Set_WIFI(ssid, password);
     *this->channel = channel;
 }
+void Soft_AP::Begin()
+{
+    char *buf = new char(UART_BUF_SIZE);
+    Transmit_UART(buf,Get_WIFI_Mode(buf,Soft_AP_mode));
+    if(*ip != '\0')
+    {
+        Transmit_UART(buf,Get_IP_Adress(buf));
+    }
+    if(*mac != '\0')
+    {
+        Transmit_UART(buf,Get_MAC_Adress(buf));
+    }
+    Transmit_UART(buf,Get_WIFI_Start(buf));
+    delete[] buf;
+}
 uint8_t Soft_AP::Get_IP_Adress(char *buf)
 {
     return (uint8_t)(*ip_gateway != '\0' && *ip_netmask != '\0') ? sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP, ip, ip_gateway, ip_netmask) : sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT, ip);
