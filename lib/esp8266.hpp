@@ -8,11 +8,13 @@
 #define MAX_SIZE_SSID 64
 #define MAX_SIZE_PASSWORD 64
 
-#define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                    // baud_rate, data_bits, stop_bits, parity, flow_control
-#define COMMAND_CONFIG_WIFI_MODE "AT+CWMODE_CUR=%d\n\r"                         // wifi_mode
-#define COMMAND_CONFIG_WIFI_MAC_SOFT_AP "AT+CIPAPMAC_CUR=\"%s\"\n\r"            // mac_adress
-#define COMMAND_CONFIG_WIFI_IP_SOFT_AP "AT+CIPAP_CUR=\"%s\",\"%s\",\"%s\"\n\r"  // ip_adress, ip_gateway, ip_netmask
-#define COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT "AT+CIPAP_CUR=\"%s\"\n\r"          // ip_adress
+#define COMMAND_CONFIG_UART "AT+UART_CUR=%i,%i,%i,%i,%i\n\r"                                      // baud_rate, data_bits, stop_bits, parity, flow_control
+#define COMMAND_CONFIG_WIFI_MODE "AT+CWMODE_CUR=%d\n\r"                                           // wifi_mode
+#define COMMAND_CONFIG_WIFI_MAC_SOFT_AP "AT+CIPAPMAC_CUR=\"%s\"\n\r"                              // mac_adress
+#define COMMAND_CONFIG_WIFI_IP_SOFT_AP "AT+CIPAP_CUR=\"%s\",\"%s\",\"%s\"\n\r"                    // ip_adress, ip_gateway, ip_netmask
+#define COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT "AT+CIPAP_CUR=\"%s\"\n\r"                            // ip_adress
+#define COMMAND_CONFIG_WIFI_SOFT_AP_START_WITH_PASSWORD "AT+CWSAP_CUR=\"%s\",\"%s\",%d,%d\n\r"    // ssid, password, channel, wifi_security
+#define COMMAND_CONFIG_WIFI_SOFT_AP_START_WITHOUT_PASSWORD "AT+CWSAP_CUR=\"%s\",%d,0\n\r"         // ssid, channel, wifi_security
 
 //ESP8266_UART enums
 enum Baud_rate
@@ -125,6 +127,7 @@ protected:
     uint8_t Get_WIFI_Mode(char *buf, Wifi_mode wifimode);
     virtual uint8_t Get_IP_Adress(char *buf) = 0;
     virtual uint8_t Get_MAC_Adress(char *buf) = 0;
+    virtual uint8_t Get_WIFI_Start(char *buf) = 0;
     void Init_var() override;
 };
 
@@ -141,5 +144,6 @@ protected:
     uint8_t *channel;
     uint8_t Get_IP_Adress(char *buf) override;
     uint8_t Get_MAC_Adress(char *buf) override;
+    uint8_t Get_WIFI_Start(char *buf) override;
     void Init_var() override;
 };

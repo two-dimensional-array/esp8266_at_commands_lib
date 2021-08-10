@@ -125,6 +125,10 @@ uint8_t Soft_AP::Get_MAC_Adress(char *buf)
 {
     return (uint8_t)sprintf(buf,COMMAND_CONFIG_WIFI_MAC_SOFT_AP, mac);
 }
+uint8_t Soft_AP::Get_WIFI_Start(char *buf)
+{
+    return (uint8_t)(*password != '\0' || *wifisecurity != OPEN) ? sprintf(buf, COMMAND_CONFIG_WIFI_SOFT_AP_START_WITH_PASSWORD, ssid, password, *channel, *wifisecurity) : sprintf(buf, COMMAND_CONFIG_WIFI_SOFT_AP_START_WITHOUT_PASSWORD, ssid, *channel);
+}
 void Soft_AP::Init_var()
 {
     wifisecurity = new Wifi_security;
