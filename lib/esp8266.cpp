@@ -70,6 +70,10 @@ void ESP8266_WIFI::Set_MAC_Adress(const char mac[])
 {
     strcpy(this->mac, mac);
 }
+void ESP8266_WIFI::Set_WIFI(const char ssid[])
+{
+    strcpy(this->ssid, ssid);
+}
 void ESP8266_WIFI::Set_WIFI(const char ssid[], const char password[])
 {
     strcpy(this->ssid, ssid);
