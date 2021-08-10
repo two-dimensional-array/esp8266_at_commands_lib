@@ -113,6 +113,7 @@ public:
     void Set_IP_Adress(const char ip[]);
     void Set_IP_Adress(const char ip[], const char ip_gateway[], const char ip_netmask[]);
     void Set_MAC_Adress(const char mac[]);
+    virtual void Set_WIFI(const char ssid[], const char password[]);
     ~ESP8266_WIFI() override;
 protected:
     char *ssid;
