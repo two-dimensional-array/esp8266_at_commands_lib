@@ -110,6 +110,16 @@ Soft_AP::Soft_AP()
     *this->wifisecurity = OPEN;
     *this->channel = 1;
 }
+void Soft_AP::Set_WIFI(const char ssid[])
+{
+    ESP8266_WIFI::Set_WIFI(ssid);
+    *this->wifisecurity = OPEN;
+}
+void Soft_AP::Set_WIFI(const char ssid[], uint8_t channel)
+{
+    Soft_AP::Set_WIFI(ssid);
+    *this->channel = channel;
+}
 void Soft_AP::Set_WIFI(const char ssid[], const char password[])
 {
     ESP8266_WIFI::Set_WIFI(ssid, password);
