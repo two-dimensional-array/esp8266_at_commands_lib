@@ -123,13 +123,13 @@ void Soft_AP::Set_WIFI(const char ssid[], uint8_t channel)
 void Soft_AP::Set_WIFI(const char ssid[], const char password[])
 {
     ESP8266_WIFI::Set_WIFI(ssid, password);
-    *this->wifisecurity = (*this->password == '\0') ? OPEN : WPA_PSK;
+    *this->wifisecurity = (*wifisecurity != OPEN) ? *wifisecurity : WPA_PSK;
 }
 void Soft_AP::Set_WIFI(const char ssid[], const char password[], uint8_t channel, Wifi_security wifisecurity)
 {
-    ESP8266_WIFI::Set_WIFI(ssid, password);
-    *this->channel = channel;
     *this->wifisecurity = wifisecurity;
+    Soft_AP::Set_WIFI(ssid, password);
+    *this->channel = channel;
 }
 uint8_t Soft_AP::Get_IP_Adress(char *buf)
 {
