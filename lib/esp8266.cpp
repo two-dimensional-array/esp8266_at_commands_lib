@@ -106,6 +106,17 @@ Soft_AP::Soft_AP()
     *this->wifisecurity = OPEN;
     *this->channel = 1;
 }
+void Soft_AP::Set_WIFI(const char ssid[], const char password[])
+{
+    ESP8266_WIFI::Set_WIFI(ssid, password);
+    *this->wifisecurity = (*this->password == '\0') ? OPEN : WPA_PSK;
+}
+void Soft_AP::Set_WIFI(const char ssid[], const char password[], uint8_t channel, Wifi_security wifisecurity)
+{
+    ESP8266_WIFI::Set_WIFI(ssid, password);
+    *this->channel = channel;
+    *this->wifisecurity = wifisecurity;
+}
 uint8_t Soft_AP::Get_IP_Adress(char *buf)
 {
     return (uint8_t)(*ip_gateway != '\0' && *ip_netmask != '\0') ? sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP, ip, ip_gateway, ip_netmask) : sprintf(buf, COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT, ip);

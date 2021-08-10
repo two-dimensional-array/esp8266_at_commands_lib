@@ -132,6 +132,8 @@ class Soft_AP: public ESP8266_WIFI
 {
 public:
     Soft_AP();
+    void Set_WIFI(const char ssid[], const char password[]) override;
+    void Set_WIFI(const char ssid[], const char password[], uint8_t channel, Wifi_security wifisecurity);
     void Begin() override;
     ~Soft_AP();
 protected:
