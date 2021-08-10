@@ -15,6 +15,11 @@
 #define COMMAND_CONFIG_WIFI_IP_SOFT_AP_SHORT "AT+CIPAP_CUR=\"%s\"\n\r"                            // ip_adress
 #define COMMAND_CONFIG_WIFI_SOFT_AP_START_WITH_PASSWORD "AT+CWSAP_CUR=\"%s\",\"%s\",%d,%d\n\r"    // ssid, password, channel, wifi_security
 #define COMMAND_CONFIG_WIFI_SOFT_AP_START_WITHOUT_PASSWORD "AT+CWSAP_CUR=\"%s\",%d,0\n\r"         // ssid, channel, wifi_security
+#define COMMAND_CONFIG_WIFI_MAC_STATION "AT+CIPSTAMAC_CUR=\"%s\"\n\r"                             // mac_adress
+#define COMMAND_CONFIG_WIFI_IP_STATION "AT+CIPSTA_CUR=\"%s\",\"%s\",\"%s\"\n\r"                   // ip_adress, ip_gateway, ip_netmask
+#define COMMAND_CONFIG_WIFI_IP_STATION_SHORT "AT+CIPSTA_CUR=\"%s\"\n\r"                           // ip_adress
+#define COMMAND_CONFIG_WIFI_STATION_START_WITH_PASSWORD "AT+CWJAP_DEF=\"%s\",\"%s\"\n\r"          // ssid, password
+#define COMMAND_CONFIG_WIFI_STATION_START_WITHOUT_PASSWORD "AT+CWJAP_DEF=\"%s\"\n\r"              // ssid
 
 //ESP8266_UART enums
 enum Baud_rate
@@ -149,4 +154,14 @@ protected:
     uint8_t Get_MAC_Adress(char *buf) override;
     uint8_t Get_WIFI_Start(char *buf) override;
     void Init_var() override;
+};
+
+class Station: public ESP8266_WIFI
+{
+public:
+    void Begin() override;
+protected:
+    uint8_t Get_IP_Adress(char *buf) override;
+    uint8_t Get_MAC_Adress(char *buf) override;
+    uint8_t Get_WIFI_Start(char *buf) override;
 };
