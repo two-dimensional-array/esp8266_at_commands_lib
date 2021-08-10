@@ -49,6 +49,12 @@ ESP8266_UART::~ESP8266_UART()
 ESP8266_WIFI::ESP8266_WIFI()
 {
     Init_var();
+    *this->ssid = '\0';
+    *this->password = '\0';
+    *this->ip = '\0';
+    *this->ip_gateway = '\0';
+    *this->ip_netmask = '\0';
+    *this->mac = '\0';
 }
 void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char mac[])
 {
