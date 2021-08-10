@@ -56,16 +56,19 @@ ESP8266_WIFI::ESP8266_WIFI()
     *this->ip_netmask = '\0';
     *this->mac = '\0';
 }
-void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char mac[])
+void ESP8266_WIFI::Set_IP_Adress(const char ip[])
 {
     strcpy(this->ip, ip);
-    strcpy(this->mac, mac);
 }
-void ESP8266_WIFI::Set_IP_MAC_Adress(const char ip[], const char ip_gateway[], const char ip_netmask[], const char mac[])
+void ESP8266_WIFI::Set_IP_Adress(const char ip[], const char ip_gateway[], const char ip_netmask[])
 {
-    this->Set_IP_MAC_Adress(ip, mac);
+    this->Set_IP_Adress(ip);
     strcpy(this->ip_gateway, ip_gateway);
     strcpy(this->ip_netmask, ip_netmask);
+}
+void ESP8266_WIFI::Set_MAC_Adress(const char mac[])
+{
+    strcpy(this->mac, mac);
 }
 uint8_t ESP8266_WIFI::Get_WIFI_Mode(char *buf, Wifi_mode wifimode)
 {
