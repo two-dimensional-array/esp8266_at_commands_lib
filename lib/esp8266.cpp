@@ -169,3 +169,33 @@ Soft_AP::~Soft_AP()
     delete channel;
 }
 //Soft_AP
+
+//Station
+void Station::Begin()
+{
+    char *buf = new char(UART_BUF_SIZE);
+    Transmit_UART(buf,Get_WIFI_Mode(buf,Station_mode));
+    if(*ip != '\0')
+    {
+        Transmit_UART(buf,Get_IP_Adress(buf));
+    }
+    if(*mac != '\0')
+    {
+        Transmit_UART(buf,Get_MAC_Adress(buf));
+    }
+    Transmit_UART(buf,Get_WIFI_Start(buf));
+    delete[] buf;
+}
+uint8_t Station::Get_IP_Adress(char *buf)
+{
+    return (uint8_t)(*ip_gateway != '\0' && *ip_netmask != '\0') ? sprintf(buf, COMMAND_CONFIG_WIFI_IP_STATION, ip, ip_gateway, ip_netmask) : sprintf(buf, COMMAND_CONFIG_WIFI_IP_STATION_SHORT, ip);
+}
+uint8_t Station::Get_MAC_Adress(char *buf)
+{
+    return (uint8_t)sprintf(buf,COMMAND_CONFIG_WIFI_MAC_STATION, mac);
+}
+uint8_t Station::Get_WIFI_Start(char *buf)
+{
+    return (uint8_t)(*password != '\0') ? sprintf(buf, COMMAND_CONFIG_WIFI_STATION_START_WITH_PASSWORD, ssid, password) : sprintf(buf, COMMAND_CONFIG_WIFI_STATION_START_WITHOUT_PASSWORD, ssid);
+}
+//Station
